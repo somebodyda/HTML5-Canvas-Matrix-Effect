@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+      <title>HTML5 Canvas Matrix Effect</title>
+    </head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      canvas {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas">Canvas is not supported in your browser.</canvas>
+    <canvas id="canvas1">Canvas is not supported in your browser.</canvas>
+    <script>
+      // chained assignment starts here
+      // Retrieves the DOM element with the ID “canvas” and assigns it to the canvas variable.
+      let canvas = document.getElementById("canvas"),
+        canvas2 = document.getElementById("canvas1"),
+        //   Gets the 2D rendering context for the canvas.
+        ctx = canvas.getContext("2d"),
+        ctx2 = canvas1.getContext("2d"),
+        // obtaine full screen size
+        cw = window.innerWidth,
+        ch = window.innerHeight,
+        // array assignment
+        charArr = [
+          "አ",
+          "ቡ",
+          "ጊ",
+          "ዳ",
+          "ሄ",
+          "ው",
+          "ዞ",
+          "በ",
+          "ጉ",
+          "ዲ",
+          "ሃ",
+          "ዌ",
+          "ዝ",
+          "ዦ",
+          "ገ",
+          "ዱ",
+          "ሂ",
+          "ዋ",
+          "ዜ",
+          "ዥ",
+          "ሖ",
+          "ደ",
+          "ሁ",
+          "ዊ",
+          "ዛ",
+          "ዤ",
+          "ሕ",
+          "ጦ",
+          "ሀ",
+          "ዉ",
+          "ዚ",
+          "ዣ",
+          "ሔ",
+          "ጥ",
+          "ጮ",
+          "ወ",
+          "ዙ",
+          "ዢ",
+          "ሓ",
+          "ጤ",
+          "ጭ",
+          "ዮ",
+          "ዘ",
+          "ዡ",
+          "ሒ",
+          "ጣ",
+          "ጬ",
+          "ይ",
+          "ኮ",
+          "ዠ",
+          "ሑ",
+          "ጢ",
+          "ጫ",
+          "ዬ",
+          "ክ",
+          "ኾ",
+          "ሐ",
+          "ጡ",
+          "ጪ",
+          "ያ",
+          "ኬ",
+          "ኽ",
+          "ሎ",
+          "ጠ",
+          "ጩ",
+          "ዪ",
+          "ካ",
+          "ኼ",
+          "ል",
+          "ሞ",
+          "ጨ",
+          "ዩ",
+          "ኪ",
+          "ኻ",
+          "ሌ",
+          "ም",
+          "ኖ",
+          "የ",
+          "ኩ",
+          "ኺ",
+          "ላ",
+          "ሜ",
+          "ን",
+          "ኞ",
+          "ከ",
+          "ኹ",
+          "ሊ",
+          "ማ",
+          "ኔ",
+          "ኝ",
+          "ሶ",
+          "ኸ",
+          "ሉ",
+          "ሚ",
+          "ና",
+          "ኜ",
+          "ስ",
+          "ሾ",
+          "ለ",
+          "ሙ",
+          "ኒ",
+          "ኛ",
+          "ሴ",
+          "ሽ",
+          "ዖ",
+          "መ",
+          "ኑ",
+          "ኚ",
+          "ሳ",
+          "ሼ",
+          "ዕ",
+          "ፎ",
+          "ነ",
+          "ኙ",
+          "ሲ",
+          "ሻ",
+          "ዔ",
+          "ፍ",
+          "ጾ",
+          "ኘ",
+          "ሱ",
+          "ሺ",
+          "ዓ",
+          "ፌ",
+          "ጽ",
+          "ቆ",
+          "ሰ",
+          "ሹ",
+          "ዒ",
+          "ፋ",
+          "ጼ",
+          "ቅ",
+          "ሮ",
+          "ሸ",
+          "ዑ",
+          "ፊ",
+          "ጻ",
+          "ቄ",
+          "ር",
+          "ሦ",
+          "ዐ",
+          "ፉ",
+          "ጺ",
+          "ቃ",
+          "ሬ",
+          "ሥ",
+          "ቶ",
+          "ፈ",
+          "ጹ",
+          "ቂ",
+          "ራ",
+          "ሤ",
+          "ት",
+          "ቾ",
+          "ጸ",
+          "ቁ",
+          "ሪ",
+          "ሣ",
+          "ቴ",
+          "ች",
+          "ኆ",
+          "ቀ",
+          "ሩ",
+          "ሢ",
+          "ታ",
+          "ቼ",
+          "ኅ",
+          "ጶ",
+          "ረ",
+          "ሡ",
+          "ቲ",
+          "ቻ",
+          "ኄ",
+          "ጵ",
+          "ፆ",
+          "ሠ",
+          "ቱ",
+          "ቺ",
+          "ኃ",
+          "ጴ",
+          "ፅ",
+          "ፖ",
+          "ተ",
+          "ቹ",
+          "ኂ",
+          "ጳ",
+          "ፄ",
+          "ፕ",
+          "ጆ",
+          "ቸ",
+          "ኁ",
+          "ጲ",
+          "ፃ",
+          "ፔ",
+          "ጅ",
+          "ኦ",
+          "ኀ",
+          "ጱ",
+          "ፂ",
+          "ፓ",
+          "ጄ",
+          "እ",
+          "ቦ",
+          "ጰ",
+          "ፁ",
+          "ፒ",
+          "ጃ",
+          "ኤ",
+          "ብ",
+          "ጎ",
+          "ፀ",
+          "ፑ",
+          "ጂ",
+          "ኣ",
+          "ቤ",
+          "ግ",
+          "ዶ",
+          "ፐ",
+          "ጁ",
+          "ኢ",
+          "ባ",
+          "ጌ",
+          "ድ",
+          "ሆ",
+          "ጀ",
+          "ኡ",
+          "ቢ",
+          "ጋ",
+          "ዴ",
+          "ህ",
+          "ዎ",
+        ],
+        // store falling character points
+        fallingCharArr = [],
+        fontSize = 32,
+        maxColums = cw / fontSize;
+      canvas.width = cw;
+      canvas.height = ch;
+      //   chained assignment ends here
+      function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+      }
+
+      function randomFloat(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      //    constructor creates a point with x and y coordinates.
+      function Point(x, y) {
+        this.x = x;
+        this.y = y;
+      }
+      //    draw method draws a character to the canvas.
+      Point.prototype.draw = function (ctx) {
+        // generates a random index within the range 0 to charArr length
+        this.value = charArr[randomInt(0, charArr.length - 1)];
+        // represents the falling speed of the character.
+        this.speed = randomFloat(3, 40);
+
+        // falling character font size font color font type and where to render in the canvas
+        ctx.fillStyle = "#00ff00";
+        ctx.font = fontSize + "px Gayathri";
+        ctx.fillText(this.value, this.x, this.y);
+        // Increments the y coordinate of the point by the falling speed.
+        this.y += this.speed;
+
+        // it wraps back to the top.
+        if (this.y > ch) {
+          this.y = 0;
+          this.speed = 0;
+        }
+      };
+      for (var i = 0; i < maxColums; i++) {
+        //  creates a new Point object with that will be distrubuted on the canvas
+        fallingCharArr.push(new Point(i * fontSize, randomFloat(0, ch)));
+      }
+
+      let update = function () {
+        //  fill style for the canvas to a semi-transparent black color
+        ctx.fillStyle = "rgb(0,0,0, 0.06)";
+        // draw on the background
+        ctx.fillRect(0, 0, cw, ch);
+        // clear the background
+        ctx2.clearRect(0, 0, cw, ch);
+
+        var i = fallingCharArr.length;
+
+        while (i--) {
+          fallingCharArr[i].draw(ctx);
+          var v = fallingCharArr[i];
+        }
+        // Requests the next animation frame, effectively creating a loop for continuous animation.
+        requestAnimationFrame(update);
+      };
+
+      update();
+    </script>
+  </body>
+</html>
